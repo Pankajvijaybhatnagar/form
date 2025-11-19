@@ -27,7 +27,7 @@ const HomePage = () => {
       <main className="flex-grow flex items-center justify-center">
         <div className="container mx-auto px-4 py-16">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-neutral">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 ">
               Welcome to <span className="text-error">Education Portal</span>
             </h1>
             <p className="text-lg md:text-xl mb-12 text-neutral-content/70 max-w-2xl mx-auto">
