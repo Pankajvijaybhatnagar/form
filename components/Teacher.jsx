@@ -45,14 +45,14 @@ const TeacherSelfAppraisalForm = () => {
                   </svg>
                 </label>
                 <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-neutral text-neutral-content rounded-box w-52">
-                  <li><a className="hover:bg-error hover:text-white">Home</a></li>
+                  <li><a href="/" className="hover:bg-error hover:text-white">Home</a></li>
                   <li><a className="hover:bg-error hover:text-white">Dashboard</a></li>
                   <li><a className="hover:bg-error hover:text-white">Reports</a></li>
                   <li><a className="hover:bg-error hover:text-white">Help</a></li>
                 </ul>
               </div>
               <ul className="menu menu-horizontal px-1 hidden lg:flex">
-                <li><a className="hover:bg-error hover:text-white">Home</a></li>
+                <li><a href="/" className="hover:bg-error hover:text-white">Home</a></li>
                 <li><a className="hover:bg-error hover:text-white">Dashboard</a></li>
                 <li><a className="hover:bg-error hover:text-white">Reports</a></li>
                 <li><a className="hover:bg-error hover:text-white">Help</a></li>
@@ -1060,7 +1060,6 @@ const TeacherSelfAppraisalForm = () => {
             <div>
               <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Quick Links</h3>
               <ul className="text-xs sm:text-sm space-y-1 sm:space-y-2">
-                <li><a href="/" className="hover:text-error">Home</a></li>
                 <li><a href="#" className="hover:text-error">Dashboard</a></li>
                 <li><a href="#" className="hover:text-error">Reports</a></li>
                 <li><a href="#" className="hover:text-error">Help</a></li>
