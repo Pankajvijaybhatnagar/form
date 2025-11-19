@@ -30,7 +30,7 @@ const HomePage = () => {
             <h1 className="text-4xl md:text-6xl font-bold mb-6 ">
               Welcome to <span className="text-error">Education Portal</span>
             </h1>
-            <p className="text-lg md:text-xl mb-12 text-neutral-content/70 max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl mb-12 content/70 max-w-2xl mx-auto">
               Choose your path to excellence with our comprehensive evaluation systems
             </p>
             
