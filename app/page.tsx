@@ -46,7 +46,7 @@ const HomePage = () => {
                 </figure>
                 <div className="card-body items-center text-center">
                   <h2 className="card-title text-2xl">   School inspection</h2>
-                  <p className="text-neutral-content/70">Complete school  School inspection forms for   compliance</p>
+                  <p className="content/70">Complete school  School inspection forms for   compliance</p>
                   <div className="card-actions mt-4">
                     <Link href="/school-inspection">
                       <button className="btn btn-error text-white">Open Form</button>
@@ -66,7 +66,7 @@ const HomePage = () => {
                 </figure>
                 <div className="card-body items-center text-center">
                   <h2 className="card-title text-2xl">Teacher Appraisal</h2>
-                  <p className="text-neutral-content/70">Submit your self-appraisal for professional development</p>
+                  <p className="content/70">Submit your self-appraisal for professional development</p>
                   <div className="card-actions mt-4">
                     <Link href="/teacher-report">
                       <button className="btn btn-primary text-white">Open Form</button>

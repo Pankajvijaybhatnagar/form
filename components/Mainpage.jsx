@@ -68,7 +68,7 @@ const    inspectionForm = () => {
       <main className="flex-grow container mx-auto px-2 sm:px-4 py-4 sm:py-8">
         <div className="max-w-6xl mx-auto bg-base-100 rounded-lg shadow-xl">
           <div className="p-3 sm:p-6 border-b border-base-300 bg-gradient-to-r from-neutral to-neutral-focus text-neutral-content rounded-t-lg">
-            <h1 className="text-xl sm:text-3xl font-bold text-center">   School inspection FORM</h1>
+            <h1 className="text-xl sm:text-3xl font-bold text-center">   School Inspection FORM</h1>
             <p className="text-center mt-1 sm:mt-2 text-xs sm:text-sm text-neutral-content/80">Complete all fields as required</p>
           </div>
           
