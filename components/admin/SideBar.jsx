@@ -1,0 +1,152 @@
+import {
+  Flex,
+  Box,
+  Text,
+  Separator,
+  IconButton,
+  ScrollArea,
+  Theme,
+} from "@radix-ui/themes";
+import Image from "next/image";
+import Link from "next/link";
+import { title } from "process";
+import { useState } from "react";
+import { FaTimes } from "react-icons/fa";
+import { FaChevronDown } from "react-icons/fa6";
+
+const navItems = [
+  { title: "Dashboard", path: "/admin/" },
+  {
+    title: "Schools List",
+    path: "/admin/school-list",
+    
+  },
+  
+
+  {
+    title: "School Inspections",
+    path: "/admin/school-inspections",
+    subTabs :[
+      {title:"All Inspections", path:"/admin/school-inspections"},
+      {title:"New Inspection", path:"/admin/school-inspections/new"},
+    ]
+    
+  },
+  {
+    title: "Appraisals Form",
+    path: "/admin/appraisals",
+    
+  },
+  
+];
+
+const Sidebar = ({ isOpen, onClose }) => {
+  const [openTabs, setOpenTabs] = useState({});
+
+  const toggleTab = (title) => {
+    setOpenTabs((prev) => ({ ...prev, [title]: !prev[title] }));
+  };
+
+  return (
+    <Box
+      style={{
+        width: isOpen ? "240px" : "0px",
+        background: "#f8f9fa",
+        height: "100vh",
+        overflow: "hidden",
+        transition: "all 0.3s ease",
+        position: "fixed",
+        top: 0,
+        left: 0,
+        borderRight: "1px solid #ddd",
+        zIndex: 50,
+      }}
+    >
+      <Flex justify="between" align="center" style={{ padding: "1rem" }}>
+        <Image
+          src={"/assets/logos/logo.png"}
+          alt={"logo"}
+          width={40}
+          height={40}
+          style={{ margin: "auto" }}
+
+        />
+
+        <IconButton size="2" onClick={onClose} variant="ghost">
+          <FaTimes />
+        </IconButton>
+      </Flex>
+
+      <Separator />
+
+      <ScrollArea type="auto" style={{ height: "calc(100vh - 60px)" }}>
+        <Box style={{ padding: "1rem" }}>
+          {navItems.map((item, idx) => (
+            <Box key={idx} style={{ marginBottom: "1rem" }}>
+              {!item.subTabs ? (
+                <Link href={item.path}>
+                  <Flex
+                    align="center"
+                    justify="between"
+                    onClick={() => item.subTabs && toggleTab(item.title)}
+                    style={{
+                      cursor: "pointer",
+                      fontWeight: "500",
+                      fontSize: "16px",
+                    }}
+                  >
+                    <Text>{item.title}</Text>
+                    {item.subTabs && <FaChevronDown size={12} />}
+                  </Flex>
+                </Link>
+              ) : (
+                <Flex
+                  align="center"
+                  justify="between"
+                  onClick={() => item.subTabs && toggleTab(item.title)}
+                  style={{
+                    cursor: "pointer",
+                    fontWeight: "500",
+                    fontSize: "16px",
+                  }}
+                >
+                  <Text>{item.title}</Text>
+                  {item.subTabs && <FaChevronDown size={12} />}
+                </Flex>
+
+              )}
+
+              {item.subTabs && openTabs[item.title] && (
+                <Box style={{ marginLeft: "1rem", marginTop: "0.5rem" }}>
+                  {item.subTabs.map((sub, sIdx) => (
+                    <Link
+                      key={sIdx}
+                      href={sub.path}
+                    >
+                      <Text
+                        as="a"
+                        href={sub.path}
+                        key={sIdx}
+                        style={{
+                          display: "block",
+                          fontSize: "14px",
+                          color: "#555",
+                          margin: "0.25rem 0",
+                        }}
+                      >
+                        {sub.title}
+                        
+                      </Text>
+                    </Link>
+                  ))}
+                </Box>
+              )}
+            </Box>
+          ))}
+        </Box>
+      </ScrollArea>
+    </Box>
+  );
+};
+
+export default Sidebar;

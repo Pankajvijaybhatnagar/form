@@ -1,14 +1,82 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import schoolServices from '@/lib/services/schoolServices';
+import uploadServices from '@/lib/services/uploadServices';
 
-const    inspectionForm = () => {
+const inspectionForm = () => {
   const [activeTab, setActiveTab] = useState(0);
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const [schools, setSchools] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedSchoolCode, setSelectedSchoolCode] = useState('');
+  const { register, handleSubmit, formState: { errors }, watch } = useForm();
+
+  // Fetch schools on component mount
+  useEffect(() => {
+    const fetchSchools = async () => {
+      try {
+        setLoading(true);
+        const response = await schoolServices.getPublicSchools();
+        if (response.success && response.data && response.data.data) {
+          setSchools(response.data.data);
+        }
+      } catch (error) {
+        console.error('Error fetching schools:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchSchools();
+  }, []);
+
+  // Watch for school name changes and auto-fill school code
+  const selectedSchool = watch('schoolName');
+  useEffect(() => {
+    if (selectedSchool) {
+      const school = schools.find(s => s.school_name === selectedSchool);
+      if (school) {
+        setSelectedSchoolCode(school.school_code);
+      }
+    } else {
+      setSelectedSchoolCode('');
+    }
+  }, [selectedSchool, schools]);
   
-  const onSubmit = (data) => {
-    console.log(data);
-    // Handle form submission here
+  const onSubmit = async (formData) => {
+    try {
+      // Make a copy so we can modify file fields
+      const payload = { ...formData };
+
+      // Iterate form fields and upload any FileList values
+      for (const [key, value] of Object.entries(formData)) {
+        if (value instanceof FileList && value.length > 0) {
+          // For single-file inputs we take the first file
+          const file = value[0];
+          try {
+            const res = await uploadServices.uploadSingleFile(file, 'inspections');
+            if (res && res.success) {
+              // Try to extract a sensible file path/URL from the response
+              const uploaded = res.data?.data?.file || res.data?.file || res.data?.path || res.data;
+              payload[key] = uploaded;
+            } else {
+              console.error('Upload failed for', key, res);
+              payload[key] = null;
+            }
+          } catch (err) {
+            console.error('Upload error for', key, err);
+            payload[key] = null;
+          }
+        }
+      }
+
+      // Attach selected school code if available
+      if (selectedSchoolCode) payload.school_code = selectedSchoolCode;
+
+      // Send payload to API or handle it as needed. For now log it.
+      console.log('Final payload (files uploaded):', payload);
+    } catch (err) {
+      console.error('Error submitting form:', err);
+    }
   };
 
   const tabs = [
@@ -116,7 +184,33 @@ const    inspectionForm = () => {
                     <label className="label">
                       <span className="label-text font-semibold">School Name</span>
                     </label>
-                    <input type="text" className="input input-bordered w-full focus:border-error" {...register("schoolName", { required: true })} />
+                    {loading ? (
+                      <div className="input input-bordered w-full flex items-center justify-center">
+                        <span className="loading loading-spinner loading-sm"></span>
+                      </div>
+                    ) : (
+                      <select className="select select-bordered w-full focus:border-error" {...register("schoolName", { required: true })}>
+                        <option value="">Select School</option>
+                        {schools.map((school) => (
+                          <option key={school.id} value={school.school_name}>
+                            {school.school_name}
+                          </option>
+                        ))}
+                      </select>
+                    )}
+                  </div>
+                  
+                  <div className="form-control w-full">
+                    <label className="label">
+                      <span className="label-text font-semibold">School Code</span>
+                    </label>
+                    <input 
+                      type="text" 
+                      className="input input-bordered w-full focus:border-error" 
+                      value={selectedSchoolCode}
+                      disabled
+                      placeholder="Auto-filled from selected school"
+                    />
                   </div>
                   
                   <div className="form-control w-full"> 

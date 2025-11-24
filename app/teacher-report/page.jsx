@@ -1,10 +1,12 @@
 import React from 'react'
-import Teacher from '../../components/Teacher'
+import TeacherSelfAppraisalForm from '@/components/Teacher'
+
 
 const page = () => {
   return (
   <>
-  <Teacher/>
+ <TeacherSelfAppraisalForm />
+
   </>
   )
 }
