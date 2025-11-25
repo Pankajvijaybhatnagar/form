@@ -48,7 +48,7 @@ const HomePage = () => {
                   <h2 className="card-title text-2xl">   School inspection</h2>
                   <p className="content/70">Complete school  School inspection forms for   compliance</p>
                   <div className="card-actions mt-4">
-                    <Link href="/school-inspection">
+                    <Link href="/school-inspections">
                       <button className="btn btn-error text-white">Open Form</button>
                     </Link>
                   </div>
