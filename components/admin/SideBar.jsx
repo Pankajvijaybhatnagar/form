@@ -5,6 +5,7 @@ import {
   Text,
   Separator,
   IconButton,
+  Button,
   ScrollArea,
   Theme,
 } from "@radix-ui/themes";
@@ -12,7 +13,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { title } from "process";
 import { useState, useEffect } from "react";
-import { FaTimes } from "react-icons/fa";
+import { FaSignOutAlt, FaTimes } from "react-icons/fa";
 import { FaChevronDown } from "react-icons/fa6";
 import { useAuth } from "../../context/AuthContext";
 
@@ -80,7 +81,7 @@ const userNavItems = [
   
 ];
 
-const { user } = useAuth();
+const { user, logout } = useAuth();
 
 useEffect(() => {
   if (user?.role === "superadmin") {
@@ -99,7 +100,7 @@ useEffect(() => {
         width: isOpen ? "240px" : "0px",
         background: "#f8f9fa",
         height: "100vh",
-        overflow: "hidden",
+        overflow: "visible", // Changed to visible to allow button to show
         transition: "all 0.3s ease",
         position: "fixed",
         top: 0,
@@ -191,6 +192,21 @@ useEffect(() => {
           ))}
         </Box>
       </ScrollArea>
+
+      <Box
+        style={{
+          position: "absolute",
+          bottom: "1rem",
+          width: "100%",
+          padding: "0 1rem",
+          boxSizing: "border-box",
+        }}
+      >
+        <Button onClick={logout} style={{ width: "100%", cursor: "pointer" }} color="red" variant="soft">
+          <FaSignOutAlt />
+          Logout
+        </Button>
+      </Box>
     </Box>
   );
 };
