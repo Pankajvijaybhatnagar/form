@@ -25,16 +25,16 @@ const navItems = [
 
   {
     title: "School Inspections",
-    path: "/admin/school-inspections",
+    path: "/school-inspections",
     subTabs :[
-      {title:"All Inspections", path:"/admin/school-inspections"},
-      {title:"New Inspection", path:"/admin/school-inspections/new"},
+      {title:"All Inspections", path:"/school-inspections"},
+      {title:"New Inspection", path:"/school-inspections/new"},
     ]
     
   },
   {
     title: "Appraisals Form",
-    path: "/admin/appraisals",
+    path: "/appraisals",
     
   },
   

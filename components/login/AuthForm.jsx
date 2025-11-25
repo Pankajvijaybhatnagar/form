@@ -76,7 +76,7 @@ export default function AuthWithImage() {
     // If the user is already authenticated, redirect them from the login page.
     if (isAuthenticated && !authLoading) {
       const isAdmin = user?.role === "admin" || user?.role === "superadmin";
-      router.push(isAdmin ? "/admin" : "/dashboard");
+      router.push(isAdmin ? "/school-inspections" : "/dashboard");
     }
   }, [isAuthenticated, authLoading, user, router]);
 
@@ -131,7 +131,7 @@ export default function AuthWithImage() {
               loginResult.user.role == "admin" ||
               loginResult.user.role == "superadmin"
             ) {
-              router.navi("/admin");
+              router.navi("/school-inspections");
             } else {
               router.push("/dashboard");
             }
@@ -160,7 +160,7 @@ export default function AuthWithImage() {
             loginResult.user.role == "admin" ||
             loginResult.user.role == "superadmin"
           ) {
-            router.push("/admin");
+            router.push("/school-inspections");
           } else {
             router.push("/dashboard");
           }
@@ -256,7 +256,7 @@ export default function AuthWithImage() {
         style={{
           minHeight: "100vh",
           width: "100%",
-          backgroundImage: "url('/assets/mandir/mandir copy.jpg')",
+          backgroundImage: "url('https://t4.ftcdn.net/jpg/16/45/68/75/360_F_1645687530_lgL5M3MCNybJoGpV8iouPtRHTHanZAIA.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -309,7 +309,7 @@ export default function AuthWithImage() {
                     setMessage("Logged in successfully with Google!");
                     // Redirect based on user role
                     const isAdmin = loginResult.user.role === "admin" || loginResult.user.role === "superadmin";
-                    router.push(isAdmin ? "/admin" : "/dashboard");
+                    router.push(isAdmin ? "/school-inspections" : "/dashboard");
                   } else {
                     setMessageType("error");
                     setMessage(loginResult?.error || "Google login failed. Please try again.");
