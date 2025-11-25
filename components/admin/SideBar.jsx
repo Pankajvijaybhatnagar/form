@@ -1,3 +1,4 @@
+'use client';
 import {
   Flex,
   Box,
@@ -10,11 +11,24 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { title } from "process";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaTimes } from "react-icons/fa";
 import { FaChevronDown } from "react-icons/fa6";
+import { useAuth } from "../../context/AuthContext";
 
-const navItems = [
+
+
+
+const Sidebar = ({ isOpen, onClose }) => {
+  const [openTabs, setOpenTabs] = useState({});
+
+  const toggleTab = (title) => {
+    setOpenTabs((prev) => ({ ...prev, [title]: !prev[title] }));
+  };
+
+
+const [navItems, setNavItems] = useState([]); // Initialize with an empty array
+const superadminNavItems = [
   { title: "Dashboard", path: "/admin/" },
   {
     title: "Schools List",
@@ -39,13 +53,45 @@ const navItems = [
   },
   
 ];
+const teacherReportItem = {
+  title: "Teacher Report",
+  path: "/teacher-report",
+};
 
-const Sidebar = ({ isOpen, onClose }) => {
-  const [openTabs, setOpenTabs] = useState({});
+const adminNavItems = [
 
-  const toggleTab = (title) => {
-    setOpenTabs((prev) => ({ ...prev, [title]: !prev[title] }));
-  };
+  {
+    title: "School Inspections",
+    path: "/school-inspections",
+    subTabs :[
+      {title:"All Inspections", path:"/school-inspections"},
+      {title:"New Inspection", path:"/school-inspections/new"},
+    ]
+    
+  },
+  {
+    title: "Teacher Reports", // Admin can see reports
+    path: "/teacher-reports",
+  },
+  
+];
+const userNavItems = [
+  teacherReportItem, // User can fill the report
+  
+];
+
+const { user } = useAuth();
+
+useEffect(() => {
+  if (user?.role === "superadmin") {
+    setNavItems(superadminNavItems);
+  } else if (user?.role === "admin") {
+    setNavItems(adminNavItems);
+  } else if (user) { // Check if user exists to set userNavItems
+    setNavItems(userNavItems);
+  }
+}, [user]); // This effect runs when the user object changes
+
 
   return (
     <Box

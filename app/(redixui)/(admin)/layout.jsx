@@ -34,10 +34,10 @@ const AdminLayout = ({ children }) => {
       }
 
       // checking user is admin or superadmin
-      if (user.role !== 'admin' && user.role !== 'superadmin') {
-        router.replace("/dashboard");
-        return
-      }
+      // if (user.role !== 'admin' && user.role !== 'superadmin') {
+      //   router.replace("/dashboard");
+      //   return
+      // }
     }
   }, [loading, isAuthenticated, router]);
 
