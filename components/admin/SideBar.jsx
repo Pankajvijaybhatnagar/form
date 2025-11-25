@@ -18,7 +18,7 @@ const navItems = [
   { title: "Dashboard", path: "/admin/" },
   {
     title: "Schools List",
-    path: "/admin/school-list",
+    path: "/school-list",
     
   },
   
